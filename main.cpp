@@ -156,10 +156,7 @@ RunSimulatorOnlyClassification(const unordered_map<string, string>& args,
     HyperSplit hs(args);
     RunSimulatorClassificationTrial(s, "HyperSplit", hs, data);
   }
-  if (tests & ClassifierTests::TestTupleSpaceSearch) {
-    TupleSpaceSearch ts;
-    RunSimulatorClassificationTrial(s, "TupleSpaceSearch", ts, data);
-  }
+
   if (outfile != "") {
     OutputWriter::WriteCsvFile(outfile, header, data);
   }
@@ -201,13 +198,14 @@ pair<vector<string>, vector<map<string, string>>> RunSimulatorUpdates(
     RunSimulatorUpdateTrial(s, "PartitionSort", ps, req, data, repetitions);
   }
   if (tests & ClassifierTests::TestPriorityTuple) {
-    PriorityTupleSpaceSearch tss;
-    RunSimulatorUpdateTrial(s, "PriorityTuple", tss, req, data, repetitions);
+    PriorityTupleSpaceSearch ptss;
+    RunSimulatorUpdateTrial(s, "PriorityTuple", ptss, req, data, repetitions);
   }
   if (tests & ClassifierTests::TestTupleSpaceSearch) {
-    TupleSpaceSearch ts;
-    RunSimulatorUpdateTrial(s, "TupleSpaceSearch", ts, req, data, repetitions);
+    TupleSpaceSearch tss;
+    RunSimulatorUpdateTrial(s, "TupleSpaceSearch", tss, req, data, repetitions);
   }
+
   if (outfile != "") {
     OutputWriter::WriteCsvFile(outfile, header, data);
   }
@@ -265,14 +263,14 @@ void RunValidation(const unordered_map<string, string>& args,
   if (tests & ClassifierTests::TestPriorityTuple) {
     classifiers["PriorityTuple"] = new PriorityTupleSpaceSearch();
   }
+  if (tests & ClassifierTests::TestTupleSpaceSearch) {
+    classifiers["TupleSpaceSearch"] = new TupleSpaceSearch();
+  }
   if (tests & ClassifierTests::TestHyperSplit) {
     classifiers["HyperSplit"] = new HyperSplit(args);
   }
   if (tests & ClassifierTests::TestHyperCuts) {
     classifiers["HyperCuts"] = new HyperCuts();
-  }
-  if (tests & ClassifierTests::TestTupleSpaceSearch) {
-    classifiers["TupleSpaceSearch"] = new TupleSpaceSearch();
   }
 
   printf("Building\n");
@@ -306,8 +304,6 @@ ClassifierTests ParseClassifier(const string& line) {
       tests = tests | TestHyperSplit;
     } else if (classifier == "HyperCuts") {
       tests = tests | TestHyperCuts;
-    } else if (classifier == "TupleSpaceSearch") {
-      tests = tests | TestTupleSpaceSearch;
     } else if (classifier == "All") {
       tests = tests | TestAll;
     } else {
