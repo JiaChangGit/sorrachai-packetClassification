@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "iosfwd": "cpp",
+        "map": "cpp",
+        "*.tcc": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "array": "cpp"
+    }
+}
