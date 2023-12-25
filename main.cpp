@@ -121,7 +121,7 @@ vector<int> RunSimulatorClassificationTrial(Simulator& s, const string& name,
   map<string, string> d = {{"Classifier", name}};
   printf("%s\n", name.c_str());
   auto r = s.PerformOnlyPacketClassification(classifier, d);
-  data.push_back(d);
+  data.emplace_back(d);
   return r;
 }
 
@@ -178,7 +178,7 @@ void RunSimulatorUpdateTrial(const Simulator& s, const string& name,
   for (auto pair : trial) {
     d[pair.first] = to_string(pair.second / reps);
   }
-  data.push_back(d);
+  data.emplace_back(d);
 }
 
 pair<vector<string>, vector<map<string, string>>> RunSimulatorUpdates(
