@@ -144,13 +144,6 @@ enum ClassifierTests {
   TestAll = 0xFFFFFFFF
 };
 
-enum PSMode {
-  NoCompression,
-  PathCompression,
-  PriorityNode,
-  NoIntermediateTree
-};
-
 inline ClassifierTests operator|(ClassifierTests a, ClassifierTests b) {
   return static_cast<ClassifierTests>(static_cast<int>(a) |
                                       static_cast<int>(b));
